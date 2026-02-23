@@ -52,9 +52,11 @@ st.markdown("""
 
 # --- 2. KONFIGURASI PATH ---
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-MODEL_PATH = "clip_jewelery_finetuned_final" 
+MODEL_PATH = "Gianjay/clip_jewelery_finetuned" 
 DATABASE_FEATS = "clip_database.pth"
 DATASET_ROOT = "dataset"
+
+HF_TOKEN = st.secrets.get("HF_TOKEN")
 
 # --- 3. FUNGSI LOAD ASSETS ---
 @st.cache_resource
