@@ -75,8 +75,8 @@ def load_assets():
 
         for p in all_paths:
             p = p.replace("\\", "/")
-            if "dataset_v31_validated/" in p:
-                parts = p.split("dataset_v31_validated/")[-1].split("/")
+            if "dataset/" in p:
+                parts = p.split("dataset/")[-1].split("/")
                 cat = parts[0] if len(parts) > 0 else "Unknown"
             else:
                 parts = p.split("/")
@@ -165,8 +165,8 @@ if uploaded_file:
                     continue
 
                 raw_path = db_paths[idx_val].replace("\\", "/")
-                if "dataset_v31_validated/" in raw_path:
-                    relative_path = raw_path.split("dataset_v31_validated/")[-1]
+                if "dataset/" in raw_path:
+                    relative_path = raw_path.split("dataset/")[-1]
                     local_path = os.path.join(DATASET_ROOT, relative_path)
                 else:
                     parts = raw_path.split("/")
