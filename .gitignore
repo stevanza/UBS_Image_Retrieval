@@ -1,0 +1,24 @@
+# Streamlit Secrets & Config
+.streamlit/
+
+# Python Virtual Environment
+venv/
+.venv/
+env/
+
+# Large Model Files (Karena sudah di-host di Hugging Face)
+clip_jewelery_finetuned_final/
+*.safetensors
+*.pth
+*.bin
+
+# Dataset (Gambar-gambar perhiasan yang banyak/berat)
+dataset/
+dataset_v31_validated/
+
+# OS Specific files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
