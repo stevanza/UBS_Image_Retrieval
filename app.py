@@ -54,7 +54,7 @@ st.markdown("""
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 MODEL_PATH = "clip_jewelery_finetuned_final" 
 DATABASE_FEATS = "clip_database.pth"
-DATASET_ROOT = "dataset_v31_validated"
+DATASET_ROOT = "dataset"
 
 # --- 3. FUNGSI LOAD ASSETS ---
 @st.cache_resource
