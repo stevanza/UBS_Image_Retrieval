@@ -129,7 +129,7 @@ if uploaded_file:
     with col_q:
         st.markdown("### Gambar Query")
         query_img = Image.open(uploaded_file).convert("RGB")
-        st.image(query_img, use_container_width=True, caption=f"{uploaded_file.name}")
+        st.image(query_img, width='stretch', caption=f"{uploaded_file.name}")
         
         # Status Filter
         st.info(f"Hasil Pencarian Kategori:\n**{selected_category}**")
@@ -140,9 +140,16 @@ if uploaded_file:
         with st.status("Menganalisis kemiripan visual..."):
             inputs = processor(images=query_img, return_tensors="pt").to(DEVICE)
             with torch.no_grad():
-                query_feat = model.get_image_features(**inputs)
-                query_feat /= query_feat.norm(dim=-1, keepdim=True)
+                # FIX: Ambil fitur dan pastikan tipenya Tensor
+                outputs = model.get_image_features(**inputs)
+                
+                # Mengakses tensor dasar dari wrapper BaseModelOutputWithPooling
+                raw_feat = outputs.pooler_output if hasattr(outputs, "pooler_output") else outputs
+                
+                # Normalisasi L2
+                query_feat = raw_feat / raw_feat.norm(dim=-1, keepdim=True)
             
+            # Hitung Cosine Similarity
             scores = (query_feat @ db_features.to(DEVICE).T).squeeze(0)
             
             # Masking kategori jika dipilih
@@ -208,7 +215,7 @@ if uploaded_file:
                     if i + j < len(valid_results):
                         item = valid_results[i + j]
                         with cols_grid[j]:
-                            st.image(item["path"], use_container_width=True, caption=item["name"])
+                            st.image(item["path"], width='stretch', caption=item["name"])
                             st.metric(label="Kemiripan", value=f"{item['score']*100:.2f}%")
                             st.caption(f"📂 {item['category']}")
 
