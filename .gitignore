@@ -21,4 +21,4 @@ dataset_v31_validated/
 Thumbs.db
 
 # Environment variables
-.env
+.env.streamlit/secrets.toml
