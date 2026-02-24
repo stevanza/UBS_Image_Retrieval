@@ -62,8 +62,16 @@ HF_TOKEN = st.secrets.get("HF_TOKEN")
 @st.cache_resource
 def load_assets():
     with st.spinner("Menginisialisasi sistem..."):
-        model = CLIPModel.from_pretrained(MODEL_PATH).to(DEVICE).eval()
-        processor = CLIPProcessor.from_pretrained(MODEL_PATH)
+        # TAMBAHKAN parameter token=HF_TOKEN di sini
+        model = CLIPModel.from_pretrained(
+            MODEL_PATH, 
+            token=HF_TOKEN
+        ).to(DEVICE).eval()
+        
+        processor = CLIPProcessor.from_pretrained(
+            MODEL_PATH, 
+            token=HF_TOKEN
+        )
         
         if not os.path.exists(DATABASE_FEATS):
             st.error(f"File {DATABASE_FEATS} tidak ditemukan!")
