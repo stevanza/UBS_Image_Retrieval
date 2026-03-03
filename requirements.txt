@@ -1,5 +1,5 @@
 streamlit
-torch
+torch>=2.0.0
 transformers
 Pillow
 huggingface_hub
